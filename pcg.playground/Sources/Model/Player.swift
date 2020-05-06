@@ -1,7 +1,14 @@
 import Foundation
 
+public enum PlayerType: String {
+    case arrow, glide, flappy
+}
+
 public class Player: Observable {
     public var observers = [ObjectIdentifier: Observation]()
+    public var type: PlayerType
     
-    public var isHolding = false
+    init(type: PlayerType) {
+        self.type = type
+    }
 }

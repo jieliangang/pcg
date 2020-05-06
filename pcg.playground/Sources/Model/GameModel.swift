@@ -14,7 +14,7 @@ class GameModel: Observable {
     
     public var time = 0.0
     
-    init() {
-        player = Player()
+    init(type playerType: PlayerType) {
+        player = Player(type: playerType)
     }
 }
