@@ -13,8 +13,16 @@ class GameModel: Observable {
     public var distance = 0
     
     public var time = 0.0
+    public var type: PlayerType
+    
+    var movingObjects = [MovingObject]() {
+        didSet {
+            notifyObservers(name: "moving", object: nil)
+        }
+    }
     
     init(type playerType: PlayerType) {
         player = Player(type: playerType)
+        type = playerType
     }
 }

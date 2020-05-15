@@ -9,7 +9,7 @@ public class PlayerNode: SKSpriteNode, Observer {
     var playerId: String?
     
     convenience init(_ player: Player) {
-        let size = CGSize(width: 55, height: 55)
+        let size = CGSize(width: Constants.playerSize, height: Constants.playerSize)
         self.init(texture: Constants.arrow,color: SKColor.black, size: size)
         
         switch player.type {
