@@ -18,7 +18,7 @@ public class Constants {
     
     public static let gameWidth = 900
     public static let gameHeight = 563
-    public static let stageWidth = 1500
+    public static let stageWidth = 1000
     
     public static let arrow = SKTexture(imageNamed: "arrow3.png")
     public static let arrowUp = SKTexture(imageNamed: "arrow1.png")

@@ -12,7 +12,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     // Mapping of Model to Node
     var movingObjects: [ObjectIdentifier: SKNode] = [:]
     
-    var playerType = PlayerType.arrow
+    var playerType = PlayerType.glide
     
     var seed = Int.random(in: 0...999999999)
     

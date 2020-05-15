@@ -83,7 +83,7 @@ public class GameEngine {
         }
         // Remove objects that are out of screen
         gameModel.movingObjects = gameModel.movingObjects.filter {
-            $0.xPos > -$0.width - 400
+            $0.xPos > -$0.width - 600
         }
     }
 }
