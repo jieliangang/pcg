@@ -18,11 +18,28 @@ public class Constants {
     
     public static let gameWidth = 900
     public static let gameHeight = 563
-    public static let stageWidth = 1000
+    public static let stageWidth = 1100
     
     public static let arrow = SKTexture(imageNamed: "arrow3.png")
     public static let arrowUp = SKTexture(imageNamed: "arrow1.png")
     public static let arrowDown = SKTexture(imageNamed: "arrow2.png")
+    
+    static let obstacle1 = SKTexture(imageNamed: "Obstacle1")
+    static let obstacle2 = SKTexture(imageNamed: "Obstacle2")
+    static let obstacle3 = SKTexture(imageNamed: "Obstacle3")
+    static let obstacle4 = SKTexture(imageNamed: "Obstacle4")
+    static let obstacle5 = SKTexture(imageNamed: "Obstacle5")
+    static let obstacles = [obstacle1, obstacle2, obstacle3, obstacle4, obstacle5]
+    static let movingObstacle = SKTexture(imageNamed: "MovingObstacle")
+
+    static func getObstacleTexture() -> SKTexture {
+        let index = Int(arc4random_uniform(UInt32(obstacles.count)))
+        return obstacles[index]
+    }
+    
+    static let greenGem = SKTexture(imageNamed: "GreenGemSmall")
+    static let coinSize = 30
+    
     
     public static let gravity = CGVector(dx: 0, dy: -10.5)
     public static let arrowGravity = CGVector(dx: 0, dy: 0)

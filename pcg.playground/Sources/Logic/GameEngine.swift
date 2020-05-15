@@ -59,6 +59,7 @@ public class GameEngine {
     }
 
     @objc private func updateGame() {
+        checkObjectsToGenerate()
         updatePositionsAndTime()
     }
     
@@ -84,6 +85,17 @@ public class GameEngine {
         // Remove objects that are out of screen
         gameModel.movingObjects = gameModel.movingObjects.filter {
             $0.xPos > -$0.width - 600
+        }
+    }
+    
+    /// Generate moving objects in game from generator
+    private func checkObjectsToGenerate() {
+        guard gameBegin else {
+            return
+        }
+        // Get all objects from generator to be added
+        while let object = generator.checkAndGetObject(position: inGameTime) {
+            gameModel.movingObjects.append(object)
         }
     }
 }

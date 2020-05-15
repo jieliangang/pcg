@@ -12,7 +12,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     // Mapping of Model to Node
     var movingObjects: [ObjectIdentifier: SKNode] = [:]
     
-    var playerType = PlayerType.glide
+    var playerType = PlayerType.flappy
     
     var seed = Int.random(in: 0...999999999)
     
@@ -78,6 +78,9 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         playerNode?.controller?.isHolding = false
+        
+//        let gameOverScene = GameOverScene(size: self.size)
+//        self.view?.presentScene(gameOverScene)
     }
     
 
@@ -94,11 +97,27 @@ extension GameScene: Observer {
         case "moving":
             for object in gameModel.movingObjects where movingObjects[ObjectIdentifier(object)] == nil {
                 let node: SKNode
-                guard let wall = object as? Wall else {
-                    continue
+                switch object.objectType {
+                case .wall:
+                    guard let wall = object as? Wall else {
+                        continue
+                    }
+                    node = WallNode(wall: wall)
+                    movingObjects[ObjectIdentifier(wall)] = node
+                case .coin:
+                    guard let coin = object as? Coin else {
+                        continue
+                    }
+                    node = CoinNode(coin: coin)
+                    movingObjects[ObjectIdentifier(coin)] = node
+                    print("coin")
+                default:
+                    guard let obstacle = object as? Obstacle else {
+                        continue
+                    }
+                    node = ObstacleNode(obstacle: obstacle)
+                    movingObjects[ObjectIdentifier(obstacle)] = node
                 }
-                node = WallNode(wall: wall)
-                movingObjects[ObjectIdentifier(wall)] = node
                 self.addChild(node)
             }
             // Remove nodes not in gameModel

@@ -23,7 +23,7 @@ struct GameParameters {
     // Obstacle Generation
     var obstacleMinInterval = 300
     var obstacleMaxInterval = 900
-    var obstacleOffset = 150
+    var obstacleOffset = 40
     var obstacleMinOffset = 50
     var movingProb: Float = 0.0
     var obstacleGenerated = true
@@ -46,7 +46,7 @@ struct GameParameters {
             botWallMin = -width/2
             botWallMax = -width/2
 
-            obstacleMinOffset = 100
+            obstacleMinOffset = 30
 
         case .flappy:
             width = 700
@@ -57,17 +57,17 @@ struct GameParameters {
             botWallMin = -width/2
             botWallMax = -width/2
 
-            obstacleMinOffset = 100
+            obstacleMinOffset = 30
 
         case .glide:
-            width = 500
-            minWidth = 300
+            width = 600
+            minWidth = 400
             topWallMin = width/2
             topWallMax = width/2
             botWallMin = -width/2
             botWallMax = -width/2
 
-            obstacleMinOffset = 200
+            obstacleMinOffset = 50
         }
     }
 
@@ -83,6 +83,6 @@ struct GameParameters {
         if difficulty > 6 {
             movingProb = 0.3
         }
-        obstacleOffset = max(obstacleOffset - 4, obstacleMinOffset)
+        obstacleOffset = max(obstacleOffset - 2, obstacleMinOffset)
     }
 }
