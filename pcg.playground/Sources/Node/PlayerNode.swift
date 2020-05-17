@@ -34,7 +34,7 @@ public class PlayerNode: SKSpriteNode, Observer {
         particleEmitter.particleColor = .white
 
         self.addGlow()
-        self.addChild(particleEmitter)
+//        self.addChild(particleEmitter)
 
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     }

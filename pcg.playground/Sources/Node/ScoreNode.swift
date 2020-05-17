@@ -5,7 +5,7 @@ class ScoreNode: SKLabelNode {
     override init() {
         super.init()
         self.text = "0m"
-        self.fontSize = 24
+        self.fontSize = 26
         self.fontColor = SKColor.white
         self.zPosition = 100
     }

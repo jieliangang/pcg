@@ -82,7 +82,12 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
-        print("Game Over")
+        if let gameOverScene = GameOverScene(fileNamed: "GameOverScene") {
+            gameOverScene.playerType = playerType
+            gameOverScene.score = gameModel.distance
+            
+            self.view?.presentScene(gameOverScene, transition: SKTransition.fade(with: .white, duration: 0.5))
+        }
     }
     
     func initGameModel(type playerType: PlayerType) {

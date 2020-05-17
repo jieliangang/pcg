@@ -40,6 +40,9 @@ public class Constants {
     static let greenGem = SKTexture(imageNamed: "GreenGemSmall")
     static let coinSize = 30
     
+    static let leftArrow = SKTexture(imageNamed: "ArrowLeft")
+    static let rightArrow = SKTexture(imageNamed: "ArrowRight")
+    
     
     public static let gravity = CGVector(dx: 0, dy: -10.5)
     public static let arrowGravity = CGVector(dx: 0, dy: 0)

@@ -12,7 +12,7 @@ class CoinScoreNode: SKSpriteNode {
 
     private func initLabel() {
         label = SKLabelNode()
-        label.fontSize = 20
+        label.fontSize = 24
         label.position = CGPoint(x: 25, y: -10)
         self.addChild(label)
     }
