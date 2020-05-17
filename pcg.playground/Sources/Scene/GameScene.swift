@@ -20,6 +20,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     var seed = Int.random(in: 0...999999999)
     
     public override func didMove(to view: SKView) {
+        print(seed)
         // init
         initGameModel(type: playerType)
         initGameEngine(seed: UInt64(seed))
@@ -111,8 +112,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initBoundary() {
-        let topBoundary = BoundaryNode(CGFloat(Constants.gameHeight/2 + 50))
-        let bottomBoundary = BoundaryNode(CGFloat(-Constants.gameHeight/2 - 50))
+        let topBoundary = BoundaryNode(CGFloat(Constants.gameHeight/2 + 60))
+        let bottomBoundary = BoundaryNode(CGFloat(-Constants.gameHeight/2 - 60))
         self.addChild(topBoundary)
         self.addChild(bottomBoundary)
     }

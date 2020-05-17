@@ -35,7 +35,7 @@ public class MenuScene: SKScene {
     
     private func initInstruction() {
         let instructionLabel = SKLabelNode(fontNamed: "HelveticaNeue-Light")
-        instructionLabel.text = "Click on arrow to select mode"
+        instructionLabel.text = "Click on arrows < > to select mode"
         instructionLabel.fontSize = 14
         instructionLabel.zPosition = -1
         instructionLabel.position = CGPoint(x: -instructionLabel.frame.width/2 + 10, y: -220)
@@ -186,7 +186,6 @@ public class MenuScene: SKScene {
     private func presentGameScene(with playerType: PlayerType) {
         if let gameScene = GameScene(fileNamed: "GameScene") {
             gameScene.playerType = playerType
-//            gameScene.seed = Int.random(in: 0...999999999)
             self.view?.presentScene(gameScene)
         }
     }

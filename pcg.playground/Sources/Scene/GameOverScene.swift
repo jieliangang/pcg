@@ -34,7 +34,7 @@ public class GameOverScene: SKScene {
         scoreLabel = SKLabelNode(fontNamed: "HelveticaNeue-Light")
         scoreLabel.text = "\(score) m"
         scoreLabel.fontSize = 40
-        scoreLabel.position = CGPoint(x: -scoreLabel.frame.width/2, y: self.frame.midY + 40)
+        scoreLabel.position = CGPoint(x: -scoreLabel.frame.width/2, y: self.frame.midY + 50)
         self.addChild(scoreLabel)
     }
 
@@ -52,14 +52,13 @@ public class GameOverScene: SKScene {
         returnLabel.name = "menu"
         returnLabel.text = "Return to Menu"
         returnLabel.fontSize = 20
-        returnLabel.position = CGPoint(x: -scoreLabel.frame.width/2, y: self.frame.midY - 40)
+        returnLabel.position = CGPoint(x: -scoreLabel.frame.width/2, y: self.frame.midY - 50)
         self.addChild(returnLabel)
     }
     
     private func presentGameScene(with characterType: PlayerType) {
         if let gameScene = GameScene(fileNamed: "GameScene") {
             gameScene.playerType = characterType
-//            gameScene.seed = Int.random(in: 0...999999999)
             self.view?.presentScene(gameScene)
         }
     }

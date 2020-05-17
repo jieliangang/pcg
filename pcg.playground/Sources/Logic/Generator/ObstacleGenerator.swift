@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- `ObstacleGenerator` handles generation of `Wall`
+ `ObstacleGenerator` handles generation of `Obstacle`
  */
 class ObstacleGenerator {
 

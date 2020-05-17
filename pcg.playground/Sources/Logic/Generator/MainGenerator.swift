@@ -19,8 +19,8 @@ class MainGenerator {
     
     // Information for Path and Wall Generation
     private var pathEndPoint = Point(xVal: 0, yVal: 0)
-    private var topWallEndY = Constants.gameHeight
-    private var bottomWallEndY = 0
+    private var topWallEndY = Constants.gameHeight/2
+    private var bottomWallEndY = -Constants.gameHeight/2
     private var path = Path()
     private var topWall = Wall(top: true)
     private var bottomWall = Wall(top: false)

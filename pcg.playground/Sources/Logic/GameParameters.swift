@@ -35,7 +35,7 @@ struct GameParameters {
         case .arrow:
             interval = Constants.pathMaxInterval
             width = 650
-            minWidth = 450
+            minWidth = 400
 
             topWallMin = width/2
             topWallMax = width/2
@@ -46,7 +46,7 @@ struct GameParameters {
 
         case .flappy:
             width = 700
-            minWidth = 500
+            minWidth = 400
 
             topWallMin = width/2
             topWallMax = width/2
@@ -68,7 +68,7 @@ struct GameParameters {
     }
 
     mutating func nextStage() {
-        topWallMin = (width/2) + Int.random(in: (-width/8)...(width/8), using: &generator)
+        topWallMin = (width/2) + Int.random(in: (-width/8)...(width/8))
         topWallMax = topWallMin + diff
         botWallMax = -(width - topWallMin)
         botWallMin = botWallMax - diff

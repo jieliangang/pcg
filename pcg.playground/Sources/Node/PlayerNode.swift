@@ -2,8 +2,6 @@ import Foundation
 import UIKit
 import SpriteKit
 
-
-
 public class PlayerNode: SKSpriteNode, Observer {
     var controller: PlayerController?
     var emitter = SKEmitterNode(fileNamed: "Bokeh")

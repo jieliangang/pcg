@@ -11,7 +11,7 @@ class FlappyController: PlayerController {
     
     public init(playerNode: PlayerNode) {
         let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(20))
-        physicsBody.affectedByGravity = true
+        physicsBody.affectedByGravity = false
         physicsBody.allowsRotation = false
         physicsBody.mass = 0.1
         physicsBody.velocity = CGVector(dx: 0, dy: 0)
@@ -36,6 +36,7 @@ class FlappyController: PlayerController {
         guard let physicsBody = playerNode?.physicsBody else {
             return
         }
+        physicsBody.affectedByGravity = true
         
         physicsBody.applyImpulse(CGVector(dx: 0, dy: 450))
         let velocity = physicsBody.velocity
