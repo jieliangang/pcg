@@ -146,7 +146,7 @@ struct Path {
             return Path()
         }
         var newPoints = points
-        let cap = Constants.gameHeight/2 + 30
+        let cap = Constants.gameHeight/2 + 50
         let yVal = top ? cap : -cap
         newPoints[0].xVal = points[0].xVal - 10
         newPoints.insert(Point(xVal: points[0].xVal - 10, yVal: yVal), at: 0)

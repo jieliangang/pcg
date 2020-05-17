@@ -6,7 +6,7 @@ import SpriteKit
 
 public class PlayerNode: SKSpriteNode, Observer {
     var controller: PlayerController?
-    var playerId: String?
+    var emitter = SKEmitterNode(fileNamed: "Bokeh")
     
     convenience init(_ player: Player) {
         let size = CGSize(width: Constants.playerSize, height: Constants.playerSize)
@@ -21,6 +21,22 @@ public class PlayerNode: SKSpriteNode, Observer {
             controller = FlappyController(playerNode: self)
         }        
         player.addObserver(self)
+        
+        guard let particleEmitter = emitter else {
+            return
+        }
+        particleEmitter.position = self.position
+        particleEmitter.particleSize = CGSize(width: 20, height: 20)
+        particleEmitter.zPosition = 1
+
+        particleEmitter.particleColorSequence = nil
+        particleEmitter.particleColorBlendFactor = 1.0
+        particleEmitter.particleColor = .white
+
+        self.addGlow()
+        self.addChild(particleEmitter)
+
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,5 +62,17 @@ public class PlayerNode: SKSpriteNode, Observer {
         }
         let angle = atan(Double(velocity) / Double(Constants.velocity * 60))
         self.zRotation = CGFloat(angle)
+        emitter?.emissionAngle = CGFloat(angle + Double.pi)
+    }
+    
+}
+
+extension SKSpriteNode {
+    func addGlow(radius: Float = 20) {
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: Constants.arrow, size: size))
+        effectNode.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": radius])
     }
 }

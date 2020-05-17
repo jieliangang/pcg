@@ -10,11 +10,15 @@ class GlideController: PlayerController {
 //        let texture = SKTexture(imageNamed: "arrow3.png")
 //        let playerSize = CGSize(width: 55, height: 55)
         let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(20))
-        physicsBody.affectedByGravity = true
+        physicsBody.affectedByGravity = false
         physicsBody.allowsRotation = false
         physicsBody.mass = 0.1
         physicsBody.velocity = CGVector(dx: 0, dy: 0)
-        print(physicsBody.affectedByGravity)
+        
+        physicsBody.categoryBitMask = ColliderType.player.rawValue
+        physicsBody.contactTestBitMask = ColliderType.wall.rawValue | ColliderType.obstacle.rawValue
+            | ColliderType.coin.rawValue | ColliderType.boundary.rawValue
+        physicsBody.collisionBitMask = 0
         
         playerNode.physicsBody = physicsBody
         self.playerNode = playerNode
@@ -31,6 +35,7 @@ class GlideController: PlayerController {
         guard let physicsBody = playerNode?.physicsBody else {
             return
         }
+        physicsBody.affectedByGravity = true
         physicsBody.applyForce(CGVector(dx: 0, dy: 370))
         let velocity = physicsBody.velocity
         if velocity.dy > CGFloat(700) {

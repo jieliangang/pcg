@@ -41,24 +41,23 @@ class ObstacleGenerator {
         let range = (num < 0.8) ? 70 : 50
 
         // Generate square boundary of obstacle which fits between wall and path
-//        let topPoints = topBound.getAllPointsFrom(from: xPos, to: min(topBound.length, xPos + range))
-//        let botPoints = bottomBound.getAllPointsFrom(from: xPos, to: min(bottomBound.length, xPos + range))
-//
-//        let maxY = topPoints.reduce(Constants.gameHeight) { (result, next) -> Int in
-//            return min(result, next.yVal)
-//        }
-//        let minY = botPoints.reduce(0) { (result, next) -> Int in
-//            return max(result, next.yVal)
-//        }
-//        let candidateY = maxY - minY
-//        print(candidateY)
-//        guard candidateY > 40 else {
-//            return nil
-//        }
-//
-//        var size = min(candidateY, range)
-        var size = 60
-        size = (type == .movingObstacle) ? 40 : Int.random(in: 40...size)
+        let topPoints = topBound.getAllPointsFrom(from: xPos, to: min(topBound.length, xPos + range))
+        let botPoints = bottomBound.getAllPointsFrom(from: xPos, to: min(bottomBound.length, xPos + range))
+
+        let maxY = topPoints.reduce(Constants.gameHeight) { (result, next) -> Int in
+            return min(result, next.yVal)
+        }
+        let minY = botPoints.reduce(0) { (result, next) -> Int in
+            return max(result, next.yVal)
+        }
+        let candidateY = maxY - minY
+        guard candidateY > 30 else {
+            return nil
+        }
+
+        var size = min(candidateY, range)
+
+        size = (type == .movingObstacle) ? 30 : Int.random(in: 30...size)
 
         let pos = top ? bottomBound.points[0].yVal : topBound.points[0].yVal - size
         return Obstacle(yPos: pos, width: size, height: size, objectType: type)

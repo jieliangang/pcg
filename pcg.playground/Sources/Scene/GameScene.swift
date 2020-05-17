@@ -6,13 +6,16 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerNode: PlayerNode!
     var backgroundNode: SKNode!
     
+    var scoreNode: ScoreNode!
+    var coinScoreNode: CoinScoreNode!
+    
     var gameModel: GameModel!
     var gameEngine: GameEngine!
     
     // Mapping of Model to Node
     var movingObjects: [ObjectIdentifier: SKNode] = [:]
     
-    var playerType = PlayerType.flappy
+    var playerType = PlayerType.arrow
     
     var seed = Int.random(in: 0...999999999)
     
@@ -21,6 +24,9 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         initGameModel(type: playerType)
         initGameEngine(seed: UInt64(seed))
         initPlayer()
+        
+        initScore()
+        initCoinScore()
         
         initBackground(type: playerType)
         initBoundary()
@@ -35,6 +41,48 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
             physicsWorld.gravity = Constants.glideGravity
         }
         physicsWorld.contactDelegate = self
+    }
+    
+    public func didBegin(_ contact: SKPhysicsContact) {
+        let isBodyAObstacle = contact.bodyA.categoryBitMask == ColliderType.obstacle.rawValue
+        let isBodyAWall = contact.bodyA.categoryBitMask == ColliderType.wall.rawValue
+        let isBodyABoundary = contact.bodyA.categoryBitMask == ColliderType.boundary.rawValue
+        let isBodyBObstacle = contact.bodyB.categoryBitMask == ColliderType.obstacle.rawValue
+        let isBodyBWall = contact.bodyB.categoryBitMask == ColliderType.wall.rawValue
+        let isBodyBBoundary = contact.bodyB.categoryBitMask == ColliderType.boundary.rawValue
+
+        if isBodyAObstacle || isBodyAWall {
+            guard let playerNode = contact.bodyB.node as? PlayerNode else {
+                return
+            }
+            playerNode.removeFromParent()
+            gameOver()
+        } else if isBodyBObstacle || isBodyBWall {
+            guard let playerNode = contact.bodyA.node as? PlayerNode else {
+                return
+            }
+            playerNode.removeFromParent()
+            gameOver()
+        } else if contact.bodyA.categoryBitMask == ColliderType.coin.rawValue {
+            guard let node = contact.bodyA.node as? CoinNode else {
+                return
+            }
+            gameModel.coinCount += 1
+            node.removeFromParent()
+        } else if contact.bodyB.categoryBitMask == ColliderType.coin.rawValue {
+            guard let node = contact.bodyB.node as? CoinNode else {
+                return
+            }
+            gameModel.coinCount += 1
+            node.removeFromParent()
+        } else if isBodyABoundary || isBodyBBoundary {
+           //  playerNode.removeFromParent()
+            gameOver()
+        }
+    }
+    
+    func gameOver() {
+        print("Game Over")
     }
     
     func initGameModel(type playerType: PlayerType) {
@@ -58,10 +106,27 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initBoundary() {
-        let topBoundary = BoundaryNode(CGFloat(Constants.gameHeight/2 + 20))
-        let bottomBoundary = BoundaryNode(CGFloat(-Constants.gameHeight/2 - 20))
+        let topBoundary = BoundaryNode(CGFloat(Constants.gameHeight/2 + 50))
+        let bottomBoundary = BoundaryNode(CGFloat(-Constants.gameHeight/2 - 50))
         self.addChild(topBoundary)
         self.addChild(bottomBoundary)
+    }
+    
+    func initScore() {
+        scoreNode = ScoreNode()
+        scoreNode.position = CGPoint(x: CGFloat(250), y: CGFloat(Constants.gameHeight/2 - 50))
+        self.addChild(scoreNode)
+    }
+    
+    func initCoinScore() {
+        coinScoreNode = CoinScoreNode()
+        coinScoreNode.position = CGPoint(x: CGFloat(250), y: CGFloat(Constants.gameHeight/2 - 80))
+        self.addChild(coinScoreNode)
+    }
+    
+    func updateScore() {
+        scoreNode.update(gameModel.distance)
+        coinScoreNode.update(gameModel.coinCount)
     }
     
     @objc static public override var supportsSecureCoding: Bool {
@@ -87,6 +152,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     public override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         playerNode.step()
+        updateScore()
     }
 }
 
@@ -110,7 +176,6 @@ extension GameScene: Observer {
                     }
                     node = CoinNode(coin: coin)
                     movingObjects[ObjectIdentifier(coin)] = node
-                    print("coin")
                 default:
                     guard let obstacle = object as? Obstacle else {
                         continue

@@ -15,6 +15,8 @@ class GameModel: Observable {
     public var time = 0.0
     public var type: PlayerType
     
+    var coinCount = 0
+    
     var movingObjects = [MovingObject]() {
         didSet {
             notifyObservers(name: "moving", object: nil)

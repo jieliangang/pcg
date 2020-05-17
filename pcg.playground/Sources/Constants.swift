@@ -61,10 +61,10 @@ public class Constants {
     static let caveWithLight = SKTexture(imageNamed: "CaveWithLight")
     
     // Path Generation
-    static let pathTopCap = gameHeight/2 - 25
+    static let pathTopCap = gameHeight/2 - 40
     static let pathBotCap = -pathTopCap
-    static let pathTopSmoothCap = pathTopCap - 25
-    static let pathBotSmoothCap = pathBotCap + 25
+    static let pathTopSmoothCap = pathTopCap - 60
+    static let pathBotSmoothCap = pathBotCap + 60
     static let pathInterval = 50
     static let pathMaxInterval = 200
     

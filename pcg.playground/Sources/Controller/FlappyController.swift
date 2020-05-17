@@ -15,7 +15,11 @@ class FlappyController: PlayerController {
         physicsBody.allowsRotation = false
         physicsBody.mass = 0.1
         physicsBody.velocity = CGVector(dx: 0, dy: 0)
-        print(physicsBody.affectedByGravity)
+        
+        physicsBody.categoryBitMask = ColliderType.player.rawValue
+        physicsBody.contactTestBitMask = ColliderType.wall.rawValue | ColliderType.obstacle.rawValue
+            | ColliderType.coin.rawValue | ColliderType.boundary.rawValue
+        physicsBody.collisionBitMask = 0
         
         playerNode.physicsBody = physicsBody
         self.playerNode = playerNode

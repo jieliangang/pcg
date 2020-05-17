@@ -12,12 +12,12 @@ class BackgroundNode: SKNode {
         setGradientBackground(frame: frame, type: type)
         setParallaxObjects(frame: frame)
 
-//        guard let backgroundEmitter = emitter else {
-//            return
-//        }
-//        backgroundEmitter.zPosition = -2
-//        backgroundEmitter.position = CGPoint(x: Constants.gameWidth, y: 0)
-//        self.addChild(backgroundEmitter)
+        guard let backgroundEmitter = emitter else {
+            return
+        }
+        backgroundEmitter.zPosition = -2
+        backgroundEmitter.position = CGPoint(x: Constants.gameWidth/2, y: 0)
+        self.addChild(backgroundEmitter)
     }
 
     init(_ frame: CGRect) {
@@ -26,12 +26,12 @@ class BackgroundNode: SKNode {
         setGradientBackground(frame: frame)
         setParallaxObjects(frame: frame)
 
-//        guard let backgroundEmitter = emitter else {
-//            return
-//        }
-//        backgroundEmitter.zPosition = -2
-//        backgroundEmitter.position = CGPoint(x: Constants.gameWidth, y: 0)
-//        self.addChild(backgroundEmitter)
+        guard let backgroundEmitter = emitter else {
+            return
+        }
+        backgroundEmitter.zPosition = -2
+        backgroundEmitter.position = CGPoint(x: Constants.gameWidth/2, y: 0)
+        self.addChild(backgroundEmitter)
     }
 
     required init?(coder aDecoder: NSCoder) {

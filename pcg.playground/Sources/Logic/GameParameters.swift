@@ -28,25 +28,21 @@ struct GameParameters {
     var movingProb: Float = 0.0
     var obstacleGenerated = true
 
-    // Power Up Generation
-    var nextPowerUpMinInterval = 3000
-    var nextPowerUpMaxInterval = 7000
-
     init(_ type: PlayerType, seed: UInt64) {
         self.type = type
         self.generator = SeededGenerator(seed: seed)
         switch type {
         case .arrow:
             interval = Constants.pathMaxInterval
-            width = 500
-            minWidth = 200
+            width = 650
+            minWidth = 450
 
             topWallMin = width/2
             topWallMax = width/2
             botWallMin = -width/2
             botWallMax = -width/2
 
-            obstacleMinOffset = 30
+            obstacleMinOffset = 50
 
         case .flappy:
             width = 700
@@ -60,8 +56,8 @@ struct GameParameters {
             obstacleMinOffset = 30
 
         case .glide:
-            width = 600
-            minWidth = 400
+            width = 650
+            minWidth = 450
             topWallMin = width/2
             topWallMax = width/2
             botWallMin = -width/2
@@ -72,7 +68,7 @@ struct GameParameters {
     }
 
     mutating func nextStage() {
-        topWallMin = (width/2) + Int.random(in: (-width/4)...(width/4), using: &generator)
+        topWallMin = (width/2) + Int.random(in: (-width/8)...(width/8), using: &generator)
         topWallMax = topWallMin + diff
         botWallMax = -(width - topWallMin)
         botWallMin = botWallMax - diff
@@ -80,8 +76,8 @@ struct GameParameters {
         width = max(width - 10, minWidth)
 
         difficulty += 1
-        if difficulty > 6 {
-            movingProb = 0.3
+        if difficulty > 4 {
+            movingProb = 0.5
         }
         obstacleOffset = max(obstacleOffset - 2, obstacleMinOffset)
     }

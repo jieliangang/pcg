@@ -169,7 +169,6 @@ class MainGenerator {
                                                               movingProb: parameters.movingProb)
 
         guard let validObstacle = obstacle else {
-            print("fail")
             return
         }
         validObstacle.initialPos = position

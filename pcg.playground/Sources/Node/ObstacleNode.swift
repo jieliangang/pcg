@@ -13,22 +13,23 @@ class ObstacleNode: SKSpriteNode, Observer {
 
         self.init(texture: texture, size: CGSize(width: obstacle.width, height: obstacle.height))
 
-//        if obstacle.objectType == .movingObstacle {
-//            if let emitter = SKEmitterNode(fileNamed: "MovingObstacle") {
-//                emitter.position = self.position
-//                emitter.zPosition = 0.5
-//                self.addChild(emitter)
-//            }
-//        }
+        if obstacle.objectType == .movingObstacle {
+            if let emitter = SKEmitterNode(fileNamed: "MovingObstacle") {
+                emitter.position = self.position
+                emitter.zPosition = 0.5
+                self.addChild(emitter)
+            }
+        }
 
         self.position = CGPoint(x: obstacle.xPos + obstacle.width / 2,
                                 y: obstacle.yPos + obstacle.height / 2)
 
         self.name = "obstacle"
-        self.physicsBody = SKPhysicsBody(texture: texture,
-                                         size: CGSize(width: obstacle.width, height: obstacle.height))
+//        self.physicsBody = SKPhysicsBody(texture: texture,
+//                                         size: CGSize(width: obstacle.width, height: obstacle.height))
         
-        //let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(20))
+        self.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(obstacle.width/2))
+        
         self.physicsBody?.isDynamic = false
         self.physicsBody?.categoryBitMask = ColliderType.obstacle.rawValue
         self.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
